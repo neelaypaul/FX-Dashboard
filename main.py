@@ -1,13 +1,14 @@
 from datetime import datetime
 from kivy.core.window import Window
+from kivy.properties import ObjectProperty
 from kivymd.app import MDApp
+from kivymd.uix.boxlayout import MDBoxLayout
 from kivymd.uix.dialog import MDDialog
 import ddown as cust_dd
 import json
-
 #import requests
 
-#Window.size = (300,500)
+Window.size = (300,500)
 
 
 
@@ -33,23 +34,31 @@ def truncate(n, decimals=0):
     multiplier = 10 ** decimals
     return int(n * multiplier) / multiplier
 
+
+class Myscreen(MDBoxLayout):
+
+
+    def __init__(self, **kwargs):
+        super(Myscreen, self).__init__(**kwargs)
+        # code goes here and add:
+        Window.bind(on_keyboard=self.Android_back_click)
+
+    def Android_back_click(self, window, key, *largs):
+        print(key)
+        print(self.ids.botsm.tab_header)
+        self.ids.botsm.switch_tab("home")
+        if key == 27 or key == 8:
+            #self._scree_manager.current = 'screen1'  # you can create a method here to cache in a list the number of screens and then pop the last visited screen.
+            return True
+
 class MainApp(MDApp):
     dd = ''
     dialog = None
     curr = data
 
-
-    def __init__(self, **kwargs):
-        super(MDApp, self).__init__(**kwargs)
-        # code goes here and add:
-        Window.bind(on_keyboard=self.Android_back_click)
-
-    def Android_back_click(self):
-        self.root.ids.sm.current = "sc_main_tp"
-
-
     def build(self):
         self.theme_cls.primary_palette = 'Blue'
+        return Myscreen()
 
     def cal(self):
         amt = 0 if self.root.ids.amount.text == '' \

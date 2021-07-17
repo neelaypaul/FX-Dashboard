@@ -1,0 +1,543 @@
+#:import a ddown
+Screen:
+
+    MDBoxLayout:
+
+        orientation: "vertical"
+
+        MDToolbar:
+            id: toolbar
+            title: "Home"
+            md_bg_color: (0.1,0.1,0.1,1)
+
+
+
+        MDBottomNavigation:
+
+            MDBottomNavigationItem:
+                name: 'home'
+                text: 'home'
+                icon: 'home'
+
+                on_tab_release: toolbar.title = "Home"
+
+                MDLabel:
+                    text: 'Home'
+                    halign: 'center'
+
+
+
+            MDBottomNavigationItem:
+                name: 'transfers'
+                text: 'Transfers'
+                icon: 'bank-transfer'
+
+                on_tab_release:
+                    toolbar.title = "Pay and Transfer"
+                    root.ids.sm.current="sc_main_tp"
+                    app.cal()
+
+
+                ScreenManager:
+                    id: sm
+                    Screen:
+                        name: "sc_main_tp"
+                        MDList:
+                            pos_hint:{'top':1}
+                            OneLineIconListItem:
+                                text: "Between your accounts"
+                                font_size: 8
+                                font_style: 'Body2'
+
+                                IconLeftWidget:
+                                    icon: "arrow-left-right"
+
+
+                            OneLineIconListItem:
+                                text: "To domestic beneficiaries"
+                                font_size: 8
+                                font_style: 'Body2'
+
+
+                                IconLeftWidget:
+                                    icon: "arrow-up-thin-circle-outline"
+
+                            OneLineIconListItem:
+                                text: "To international beneficiaries"
+                                font_size: 8
+                                font_style: 'Body2'
+
+
+                                IconLeftWidget:
+                                    icon: "arrow-up-bold-hexagon-outline"
+
+                            OneLineIconListItem:
+                                text: "Foreign Exchange Dashboard"
+                                font_size: 8
+                                font_style: 'Body2'
+
+                                on_release:
+                                    root.ids.sm.current="sc_fx_dash"
+                                    toolbar.left_action_items= [["arrow-left", lambda x: app.sc_main_tp()]]
+                                    toolbar.title="FX Dashboard"
+
+
+
+                                IconLeftWidget:
+                                    icon: "chart-bar"
+
+
+                    Screen:
+                        name: "sc_fx_dash"
+
+
+                        ScrollView:
+                            do_scroll_y: True
+                            do_scroll_x: False
+                            pos_hint: {'top':1}
+
+
+
+                            MDBoxLayout:
+                                orientation: 'vertical'
+                                padding: "10dp"
+                                spacing: "10dp"
+                                adaptive_height: True
+
+
+                                MDLabel:
+                                    text: "[b]Welcome Neelay Paul!![/b]"
+                                    size_hint_y: None
+                                    height: self.texture_size[1]
+                                    halign: 'center'
+                                    font_style: 'Body2'
+                                    markup: True
+
+                                MDCard:
+                                    orientation: "vertical"
+                                    size_hint: 1, None
+                                    height: box_top.height + box_bottom.height
+
+                                    MDBoxLayout:
+                                        id: box_top
+                                        spacing: "20dp"
+                                        adaptive_height: True
+
+                                        FitImage:
+                                            source: "offer.jpeg"
+                                            size_hint: 1, None
+                                            height: "150dp"
+
+                                    MDBoxLayout:
+                                        id: box_bottom
+                                        orientation: "vertical"
+                                        adaptive_height: True
+                                        spacing: "5dp"
+                                        padding: "10dp"
+
+                                        MDLabel:
+                                            text: "[b]Current FX Offer(s):[/b]"
+                                            size_hint_y: None
+                                            height: self.texture_size[1]
+                                            halign: 'left'
+                                            font_style: 'Body2'
+                                            markup: True
+
+                                        MDSeparator:
+                                            height: "2dp"
+
+
+                                        MDLabel:
+                                            text: "Did you know you are eligible for 5% cashback if you do 4 FX transactions between 25-Apr-2021 to 25-May-2021 (T&C Applied)?"
+                                            size_hint_y: None
+                                            height: self.texture_size[1]
+                                            halign: 'left'
+                                            font_style: 'Body2'
+
+                                        MDLabel:
+                                            text: "You have one completed and one pending FX transaction in this period. Hurry up! Don't miss this offer."
+                                            size_hint_y: None
+                                            height: self.texture_size[1]
+                                            halign: 'left'
+                                            font_style: 'Body2'
+
+                                MDCard:
+                                    orientation: "vertical"
+                                    size_hint: 1, None
+                                    height:box_top3.height + box_bottom3.height
+
+                                    MDBoxLayout:
+                                        id: box_top3
+                                        spacing: "20dp"
+                                        adaptive_height: True
+
+
+                                        FitImage:
+                                            source: "pending2.jpg"
+                                            size_hint: 0.8, None
+                                            height: "120dp"
+
+
+                                    MDBoxLayout:
+                                        id: box_bottom3
+                                        orientation: "vertical"
+                                        adaptive_height: True
+                                        spacing: "5dp"
+                                        padding: "10dp"
+
+                                        MDLabel:
+                                            text: "[b]Pending FX transaction status:[/b]"
+                                            size_hint_y: None
+                                            height: self.texture_size[1]
+                                            halign: 'left'
+                                            font_style: 'Body2'
+                                            markup: True
+
+                                        MDSeparator:
+                                            height: "2dp"
+
+                                        MDBoxLayout:
+                                            size_hint_y:None
+                                            adaptive_height: True
+                                            md_bg_color: (0.5,0.5,0.5,0.5)
+
+                                            MDLabel:
+                                                text: "04-May-2021"
+                                                size_hint_y: None
+                                                height: self.texture_size[1]
+                                                halign: 'left'
+                                                font_style: 'Body2'
+                                                markup: True
+
+                                        MDProgressBar:
+                                            value: 60
+
+                                        MDGridLayout:
+                                            cols: 3
+                                            size_hint_y: None
+                                            adaptive_height: True
+                                            spacing:8
+                                            padding:8
+
+                                            MDLabel:
+                                                text: "TRANSFER\n IND12456378"
+                                                size_hint_y: None
+                                                height: self.texture_size[1]
+                                                size_hint_x: 0.5
+                                                halign: 'left'
+                                                font_style: 'Body2'
+                                                markup: True
+
+                                            MDLabel:
+                                                text: "60% Complete"
+                                                size_hint_y: None
+                                                height: self.texture_size[1]
+                                                size_hint_x: 0.3
+                                                halign: 'left'
+                                                font_style: 'Body2'
+                                                markup: True
+
+                                            MDLabel:
+                                                text: "ETA: 2 WD"
+                                                size_hint_y: None
+                                                height: self.texture_size[1]
+                                                size_hint_x: 0.2
+                                                halign: 'left'
+                                                font_style: 'Body2'
+                                                markup: True
+
+
+
+
+
+
+
+
+                                MDCard:
+                                    orientation: "vertical"
+                                    size_hint: 1, None
+                                    height:box_top2.height + box_bottom2.height
+
+                                    MDBoxLayout:
+                                        id: box_top2
+                                        spacing: "20dp"
+                                        adaptive_height: True
+
+                                        FitImage:
+                                            source: "Foreign-Exchange.jpg"
+                                            size_hint: 0.8, None
+                                            height: "120dp"
+                                    MDBoxLayout:
+                                        id: box_bottom2
+                                        orientation: "vertical"
+                                        adaptive_height: True
+                                        spacing: "5dp"
+                                        padding: "10dp"
+
+                                        MDLabel:
+                                            text: "[b]Last six months completed FX transactions:[/b]"
+                                            size_hint_y: None
+                                            height: self.texture_size[1]
+                                            halign: 'center'
+                                            font_style: 'Body2'
+                                            markup: True
+
+                                        MDSeparator:
+                                            height: "2dp"
+
+
+                                        MDBoxLayout:
+                                            size_hint_y:None
+                                            adaptive_height: True
+                                            md_bg_color: (0.5,0.5,0.5,0.5)
+
+                                            MDLabel:
+                                                text: "01-JAN-2021"
+                                                size_hint_y: None
+                                                height: self.texture_size[1]
+                                                halign: 'left'
+                                                font_style: 'Body2'
+                                                markup: True
+
+                                        MDGridLayout:
+                                            cols: 2
+                                            size_hint_y: None
+                                            adaptive_height: True
+
+                                            MDLabel:
+                                                text: "TRANSFER\n IND12345678 -30,000 INR"
+                                                size_hint_y: None
+                                                height: self.texture_size[1]
+                                                size_hint_x: 0.8
+                                                halign: 'left'
+                                                font_style: 'Body2'
+                                                markup: True
+
+                                            MDLabel:
+                                                text: "-280 GBP"
+                                                size_hint_y: None
+                                                height: self.texture_size[1]
+                                                size_hint_x: 0.2
+                                                halign: 'right'
+                                                font_style: 'Body2'
+                                                markup: True
+
+                                        MDBoxLayout:
+                                            size_hint_y:None
+                                            adaptive_height: True
+                                            md_bg_color: (0.5,0.5,0.5,0.5)
+
+                                            MDLabel:
+                                                text: "01-Mar-2021"
+                                                size_hint_y: None
+                                                height: self.texture_size[1]
+                                                halign: 'left'
+                                                font_style: 'Body2'
+                                                markup: True
+
+                                        MDGridLayout:
+                                            cols: 2
+                                            size_hint_y: None
+                                            adaptive_height: True
+
+                                            MDLabel:
+                                                text: "TRANSFER\n IND12328645 -30,000 INR"
+                                                size_hint_y: None
+                                                height: self.texture_size[1]
+                                                size_hint_x: 0.8
+                                                halign: 'left'
+                                                font_style: 'Body2'
+                                                markup: True
+
+                                            MDLabel:
+                                                text: "-280 GBP"
+                                                size_hint_y: None
+                                                height: self.texture_size[1]
+                                                size_hint_x: 0.2
+                                                halign: 'right'
+                                                font_style: 'Body2'
+                                                markup: True
+
+                                        MDBoxLayout:
+                                            size_hint_y:None
+                                            adaptive_height: True
+                                            md_bg_color: (0.5,0.5,0.5,0.5)
+
+                                            MDLabel:
+                                                text: "01-MAY-2021"
+                                                size_hint_y: None
+                                                height: self.texture_size[1]
+                                                halign: 'left'
+                                                font_style: 'Body2'
+                                                markup: True
+
+                                        MDGridLayout:
+                                            cols: 2
+                                            size_hint_y: None
+                                            adaptive_height: True
+
+                                            MDLabel:
+                                                text: "TRANSFER\n IND12356476 -30,000 INR"
+                                                size_hint_y: None
+                                                height: self.texture_size[1]
+                                                size_hint_x: 0.8
+                                                halign: 'left'
+                                                font_style: 'Body2'
+                                                markup: True
+
+                                            MDLabel:
+                                                text: "-280 GBP"
+                                                size_hint_y: None
+                                                height: self.texture_size[1]
+                                                size_hint_x: 0.2
+                                                halign: 'right'
+                                                font_style: 'Body2'
+                                                markup: True
+
+
+
+
+                                MDCard:
+                                    orientation: "vertical"
+                                    size_hint: 1, None
+                                    height:box_top1.height + box_bottom1.height
+
+                                    MDBoxLayout:
+                                        id: box_top1
+                                        spacing: "20dp"
+                                        adaptive_height: True
+
+                                        FitImage:
+                                            #source: "Foreign-Exchange.jpg"
+                                            source: "exchange rates.jpg"
+                                            size_hint: 0.8, None
+                                            height: "100dp"
+
+                                    MDBoxLayout:
+                                        id: box_bottom1
+                                        orientation: 'vertical'
+                                        size_hint_y:None
+                                        adaptive_height: True
+                                        spacing:8
+                                        padding:8
+
+                                        MDLabel:
+                                            text: "[b]Current money exchange rates:[/b]"
+                                            size_hint_y: None
+                                            height: self.texture_size[1]
+                                            halign: 'center'
+                                            font_style: 'Body2'
+                                            markup: True
+
+                                        MDSeparator:
+                                            height: "2dp"
+
+
+                                        MDGridLayout:
+                                            cols: 2
+                                            size_hint_y:None
+                                            adaptive_height: True
+
+
+
+
+                                            MDLabel:
+                                                text: "[b]From[/b]\n"
+                                                size_hint_y: None
+                                                height: self.texture_size[1]
+                                                size_hint_x: 0.4
+                                                halign: 'center'
+                                                font_style: 'Body2'
+                                                markup: True
+
+                                            MyMDTextField:
+                                                id: fr
+                                                size_hint_x:0.6
+                                                on_touch_down: app.dd = 'FR'
+                                                text: 'GBP'
+                                                on_text: app.cal()
+
+
+                                            MDLabel:
+                                                text: "[b]To[/b]\n"
+                                                size_hint_y: None
+                                                height: self.texture_size[1]
+                                                size_hint_x: 0.4
+                                                halign: 'center'
+                                                font_style: 'Body2'
+                                                markup: True
+
+
+
+                                            MyMDTextField:
+                                                id: to
+                                                size_hint_x:0.6
+                                                on_touch_down: app.dd = 'TO'
+                                                text: 'USD'
+                                                on_text: app.cal()
+
+
+                                            MDLabel:
+                                                text: "[b]Amount[/b]\n"
+                                                size_hint_y: None
+                                                height: self.texture_size[1]
+                                                size_hint_x: 0.4
+                                                halign: 'center'
+                                                font_style: 'Body2'
+                                                markup: True
+
+                                            MDTextField:
+                                                id:amount
+                                                text: "1"
+                                                font_size:'14sp'
+                                                size_hint: 0.6, None
+                                                height: "30dp"
+                                                input_filter: 'float'
+                                                on_text: app.cal()
+
+                                        MDLabel:
+                                            id: ans
+                                            text: "test"
+                                            size_hint_y: None
+                                            height: self.texture_size[1]
+                                            halign: 'center'
+                                            font_style: 'Body2'
+                                            markup: True
+
+
+
+
+
+
+
+
+
+
+
+
+
+            MDBottomNavigationItem:
+                name: 'messages'
+                text: 'messages'
+                icon: 'email-outline'
+
+                on_tab_release: toolbar.title = "Messages"
+
+                MDLabel:
+                    text: 'messages'
+                    halign: 'center'
+
+            MDBottomNavigationItem:
+                name: 'profile'
+                text: 'profile'
+                icon: 'account'
+
+                on_tab_release: toolbar.title = "Profile"
+
+                MDLabel:
+                    text: 'profile'
+                    halign: 'center'
+
+
+
+
